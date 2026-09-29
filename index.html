@@ -16,6 +16,7 @@
 <section id="result" class="result"><label id="distanceLabel"></label><span id="meters" class="distance">0</span> <span class="unit">m</span><div class="row"><div class="stat"><label id="bearingLabel"></label><b id="bearing">0°</b></div><div class="stat"><label id="exactLabel"></label><b id="exact">0.0 m</b></div></div></section>
 <div id="help" class="help"></div>
 </main>
+<div id="credit" class="gabriel-credit">Feito por Gabriel Porto</div>
 <script>
 const T={
 pt:{credit:'Feito por Gabriel Porto',title:'Calculadora de distância',sub:'Digite X e Y separadamente nos campos abaixo.',origin:'POSIÇÃO DO MORTEIRO / DISPARO',target:'POSIÇÃO DO ALVO',calc:'CALCULAR DISPARO',error:'Preencha os quatro campos X e Y com números válidos.',distance:'DISTÂNCIA PARA O ALVO',bearing:'DIREÇÃO / BEARING',exact:'DISTÂNCIA EXATA',help:'No jogo: coloque o valor de <code>X</code> e <code>Y</code> da sua posição nos dois primeiros campos e o <code>X</code> e <code>Y</code> do alvo nos dois campos seguintes.'},
@@ -28,5 +29,5 @@ function setLang(lang){const t=T[lang]||T.pt;const v=[t.credit,t.title,t.sub,t.o
 function readNumber(el){const v=(el.value||'').trim().replace(',','.');if(v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null}
 function calculate(){const ax=readNumber(originX),ay=readNumber(originY),bx=readNumber(targetX),by=readNumber(targetY);if([ax,ay,bx,by].some(v=>v===null)){error.style.display='block';result.style.display='none';return}error.style.display='none';const dx=bx-ax,dy=by-ay,d=Math.sqrt(dx*dx+dy*dy)*100;let br=Math.atan2(dx,dy)*180/Math.PI;if(br<0)br+=360;meters.textContent=Math.round(d);exact.textContent=d.toFixed(1)+' m';bearing.textContent=br.toFixed(1)+'°';result.style.display='block'}
 language.value=localStorage.getItem('wardogsLang')||'pt';setLang(language.value);language.addEventListener('change',()=>setLang(language.value));calc.onclick=calculate;document.addEventListener('keydown',e=>{if(e.key==='Enter')calculate()});
-</script><div id="credit" class="gabriel-credit">Feito por Gabriel Porto</div>
+</script>
 </body></html>
